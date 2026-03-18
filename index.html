@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISION 2029 | C. WECHING KONYAK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@300;700&display=swap');
+        :root { --bg: #020617; --text: #f1f5f9; --sky: #00f2ff; }
+        .light-mode { --bg: #f8fafc; --text: #0f172a; --sky: #2563eb; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; transition: 0.3s; padding-bottom: 60px; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .glass { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(15px); border: 1px solid rgba(56, 189, 248, 0.2); }
+        input, textarea { background: rgba(0,0,0,0.2) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: inherit !important; width: 100%; padding: 12px; border-radius: 12px; font-size: 14px; margin-bottom: 10px; }
+        .cv-preview { background: white; color: black; font-family: serif; padding: 40px; border-radius: 8px; margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: left; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center px-4 py-8">
+
+    <button onclick="document.body.classList.toggle('light-mode')" class="fixed top-4 right-4 glass p-2 rounded-full text-[10px] mono z-50">🌓 MODE</button>
+
+    <header class="text-center mb-10">
+        <h1 class="text-4xl font-black italic uppercase tracking-tighter">VISION <span class="text-sky-400">2029</span></h1>
+        <p class="mono text-[10px] opacity-50 uppercase tracking-widest mt-1">C. Weching Konyak // NIELIT Kohima</p>
+    </header>
+
+    <section class="w-full max-w-lg glass p-5 rounded-3xl mb-8">
+        <h3 class="mono text-xs text-sky-400 mb-3 font-bold flex items-center gap-2">
+            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> SYSTEM STATUS: ONLINE
+        </h3>
+        <div id="chat-box" class="h-40 overflow-y-auto text-[11px] space-y-3 p-3 bg-black/20 rounded-2xl leading-relaxed"></div>
+    </section>
+
+    <section class="w-full max-w-lg glass p-6 rounded-3xl mb-8 border-l-4 border-sky-400">
+        <h3 class="mono text-xs text-sky-400 mb-4 font-bold uppercase tracking-widest">Resume Architect</h3>
+        <p class="text-[10px] opacity-70 mb-4 italic">Auto-generate a professional CV to bridge the employment gap.</p>
+        <input id="uName" type="text" placeholder="Full Name">
+        <input id="uEdu" type="text" placeholder="Qualification (e.g., BCA Student)">
+        <input id="uSkill" type="text" placeholder="Technical Skills (e.g., Java, AI, Web)">
+        <textarea id="uExp" rows="3" placeholder="Work Experience / Projects"></textarea>
+        <button onclick="generateCV()" class="w-full py-4 bg-sky-500 text-slate-950 font-black rounded-xl uppercase text-xs tracking-widest hover:scale-95 transition-all shadow-lg shadow-sky-500/20">Generate Resume</button>
+    </section>
+
+    <section id="cv-area" class="w-full max-w-lg hidden mb-10">
+        <div id="cv-output" class="cv-preview"></div>
+        <button onclick="window.print()" class="mt-4 w-full py-3 border-2 border-sky-400 text-sky-400 rounded-xl font-bold text-xs uppercase">Save as PDF</button>
+        <p class="text-[10px] text-center mt-4 opacity-80 text-sky-400">Need a high-standard custom design? Contact me below.</p>
+    </section>
+
+    <section class="w-full max-w-lg space-y-3 mb-10">
+        <a href="https://wa.me/918798474136" class="flex items-center justify-between glass p-4 rounded-2xl border-l-4 border-green-500 hover:bg-green-500/10 transition-all">
+            <div><p class="text-[9px] mono opacity-60">WHATSAPP DIRECT</p><p class="font-bold">+91 8798474136</p></div>
+            <span>💬</span>
+        </a>
+        <a href="mailto:7hleoweching@gmail.com" class="flex items-center justify-between glass p-4 rounded-2xl border-l-4 border-sky-500 hover:bg-sky-500/10 transition-all">
+            <div><p class="text-[9px] mono opacity-60">PRIMARY EMAIL</p><p class="text-xs font-bold">7hleoweching@gmail.com</p></div>
+            <span>📧</span>
+        </a>
+    </section>
+
+    <footer class="text-center opacity-30">
+        <p class="mono text-[8px] tracking-widest uppercase">© 2026-2029 // Nagaland Digital Initiative</p>
+    </footer>
+
+    <script>
+        // AI FEED DATA
+        const messages = [
+            "Syncing with Nagaland 2029 Strategy...",
+            "FACT: 72% of youth are leaving education due to financial gaps.",
+            "GOAL: Developing Konyak Language App for cultural preservation.",
+            "STATUS: Resume Architect active. Supporting local employment.",
+            "INSIGHT: Skill is the destination. The degree is the ticket.",
+            "CONTACT: 7hleoweching@gmail.com for collaboration.",
+            "NagaAI: Standing by for user input..."
+        ];
+        let msgIdx = 0;
+        function typeInfo() {
+            if(msgIdx < messages.length) {
+                const box = document.getElementById('chat-box');
+                box.innerHTML += `<div class="text-sky-400 mb-1">>> ${messages[msgIdx]}</div>`;
+                box.scrollTop = box.scrollHeight;
+                msgIdx++;
+                setTimeout(typeInfo, 2500);
+            }
+        }
+        window.onload = typeInfo;
+
+        // RESUME LOGIC
+        function generateCV() {
+            const name = document.getElementById('uName').value;
+            const edu = document.getElementById('uEdu').value;
+            const skill = document.getElementById('uSkill').value;
+            const exp = document.getElementById('uExp').value;
+            if(!name || !edu) { alert("Please enter Name and Qualification."); return; }
+
+            document.getElementById('cv-output').innerHTML = `
+                <h1 style="font-size:22px; border-bottom:2px solid #333; padding-bottom:5px; margin-bottom:15px;">${name.toUpperCase()}</h1>
+                <p style="font-size:13px; margin-bottom:15px;"><strong>Objective:</strong> To drive regional innovation using modern technical skills.</p>
+                <h2 style="font-size:16px; margin-top:15px; color:#444; border-bottom:1px solid #eee;">EDUCATION</h2>
+                <p style="font-size:13px;">${edu}</p>
+                <h2 style="font-size:16px; margin-top:15px; color:#444; border-bottom:1px solid #eee;">CORE SKILLS</h2>
+                <p style="font-size:13px;">${skill}</p>
+                <h2 style="font-size:16px; margin-top:15px; color:#444; border-bottom:1px solid #eee;">PROJECTS</h2>
+                <p style="font-size:13px;">${exp}</p>
+                <footer style="margin-top:30px; font-size:9px; color:#888; border-top:1px solid #eee; padding-top:10px;">
+                    Generated by Vision 2029 Terminal // Architect: C. Weching Konyak
+                </footer>
+            `;
+            document.getElementById('cv-area').classList.remove('hidden');
+            document.getElementById('cv-area').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
